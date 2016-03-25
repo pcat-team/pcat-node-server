@@ -108,7 +108,7 @@ exports.start = function(opt, callback) {
       process.stdout.write(' at port [' + opt.port + ']\n');
       var siteAddress = 
       setTimeout(function() {
-        var address = (opt.https ? 'https' : 'http') + '://'+util.hostname + (opt.port == 80 ? '/' : ':' + opt.port + '/') + (opt._project ? 'page/'+ opt._site + opt._project + opt._version : '');
+        var address = (opt.https ? 'https' : 'http') + '://'+util.hostname + (opt.port == 80 ? '/' : ':' + opt.port + '/') + (opt._project ? 'dev/page/'+ opt._site + opt._project + opt._version : '');
 
         // fis.log.notice('Browse %s', address.yellow.bold);
         fis.log.notice('Browse %s', address.yellow.bold);
