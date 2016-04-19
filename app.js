@@ -3,7 +3,7 @@ var express = require('express');
 var args = process.argv.join('|');
 console.log(process.argv,'||||||')
 var port = /\-\-port\|(\d+)(?:\||$)/.test(args) ? ~~RegExp.$1 : 8080;
-var api = /\-\-api\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : 'dev6.pco'+'nline.com.cn:8002';
+var api = /\-\-api\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : 'dev6.{{site}}.com.cn:8002';
 var https = /\-\-https\|(true)(?:\||$)/.test(args) ? !!RegExp.$1 : false;
 var path = require('path');
 var DOCUMENT_ROOT = path.resolve(/\-\-root\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : process.cwd());
@@ -11,6 +11,7 @@ var DOCUMENT_ROOT = path.resolve(/\-\-root\|(.*?)(?:\||$)/.test(args) ? RegExp.$
 var bodyParser = require('body-parser')
 var serveIndex = require('serve-index')
 var app = express();
+var cmsRouter = require('./cms.js')(api)
 
 
 // logger
@@ -32,15 +33,16 @@ app.use(require('yog-devtools')({
 }));
 
 const request = require('request')
-
+app.use(cmsRouter)
 app.use(function(req,res,next){
   'use strict'
+  if(req.path === '/cmsapi')return next()
   let obj  = path.parse(req.path)
   let type = obj.ext.slice(1)
   console.log(/^[^\_]*?\_[^\_]*?\.html$/.test(obj.base),obj.base)
   if(!/^[^\_]*?\_[^\_]*?\.html$/.test(obj.base) && /^[^\_]*?\.html$/.test(obj.base)){
     let _path = obj.dir.split('/')
-    let mapPath = path.join(DOCUMENT_ROOT,obj.dir.replace(/\/page\//,'/map/'),'map.json')
+    let mapPath = path.join(DOCUMENT_ROOT,obj.dir.replace(/\/page\//,'/map/'),'../map.json')
     new Promise(function(resolve,reject){
       fs.readFile(mapPath,(err,data)=>{
         if(err)return reject(err);

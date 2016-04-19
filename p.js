@@ -9,6 +9,8 @@ module.exports = function(ROOT,api){
     'use strict'
     let type = path.extname(req.path).slice(1)
     let noContent = lastBody === '__NO_CONTENT__'
+    let site = req.path.replace(/.*?\/(pc(?:auto|online|baby|lady|house|games))\/.*/ig,'$1')
+    console.log('---- ------ ------- api: ' + `http://${api.replace(/\{\{site\}\}/,site)}/admin/template/remotePreview.jsp`)
     console.log(req.query)
     console.log(req.params)
     console.log(type)
@@ -29,11 +31,12 @@ module.exports = function(ROOT,api){
       console.log(config)
       // str = iconv.decode(new Buffer([0x68, 0x65, 0x6c, 0x6c, 0x6f]), 'win1251');
       request.post({
-        url:`http://${api}/admin/template/remotePreview.jsp`,
+        url:`http://${api.replace(/\{\{site\}\}/,site)}/admin/template/remotePreview.jsp`,
         form: config
       },  (e, r, body) => {
         body && res.type(type),res.end(body)
         e && res.json(e)
+        config = _content = content = null
       })
     }else{
       noContent ? next() : res.end(lastBody)
