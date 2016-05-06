@@ -3,7 +3,7 @@ var express = require('express');
 var args = process.argv.join('|');
 console.log(process.argv,'||||||')
 var port = /\-\-port\|(\d+)(?:\||$)/.test(args) ? ~~RegExp.$1 : 8080;
-var api = /\-\-api\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : 'dev6.{{site}}.com.cn:8002';
+var api = /\-\-api\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : 'cms.{{site}}.com.cn';
 var https = /\-\-https\|(true)(?:\||$)/.test(args) ? !!RegExp.$1 : false;
 var path = require('path');
 var DOCUMENT_ROOT = path.resolve(/\-\-root\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : process.cwd());
