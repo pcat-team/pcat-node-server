@@ -50,7 +50,7 @@ app.use(function(req,res,next){
       })
     }).then(function(data){
       let _fileName = obj.name.replace(/(.*?)\_[^\_]*?\.html/,'$1')
-      let _name = `${_path[4]}:page/${_fileName}/${_fileName}.html`
+      let _name = `${_path[_path.length - 2]}:page/${_fileName}/${_fileName}.html`
       return new Promise((resolve,reject) => {
         fs.readFile(path.join(DOCUMENT_ROOT,data[_name].extras.path),(err,data) => {
           console.log(err,'!!--------------------')
