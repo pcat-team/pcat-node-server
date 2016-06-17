@@ -10,13 +10,13 @@ var serveIndex = require('serve-index')
 var app = express();
 
 
-// 识别请求资源的 MIME 类型
-var mime = require('mime-types');
-// 解决预览GBK文件乱码问题
-app.use(function(req, res, next) {
-    res.set({'Content-Type':  mime.lookup(req.path)+';charset='});
-    next();
-});
+// // 识别请求资源的 MIME 类型
+// var mime = require('mime-types');
+// // 解决预览GBK文件乱码问题
+// app.use(function(req, res, next) {
+//     res.set({'Content-Type':  mime.lookup(req.path)+';charset='});
+//     next();
+// });
 
 // logger
 app.use(require('morgan')('short'));
