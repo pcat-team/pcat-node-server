@@ -1,6 +1,6 @@
 {
   "name": "pcat-server-node",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "pcat server node",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "express": "4.10.1",
     "morgan": "1.6.1",
     "serve-index": "1.5.0",
+    "mime-types": "2.1.11",
     "yog-devtools": "0.0.5"
   },
   "author": "fis",
