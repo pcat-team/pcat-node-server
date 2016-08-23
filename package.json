@@ -1,6 +1,6 @@
 {
   "name": "pcat-server-node",
-  "version": "1.1.18",
+  "version": "1.2.0",
   "description": "pcat server node",
   "main": "index.js",
   "scripts": {

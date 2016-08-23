@@ -40,6 +40,9 @@ app.use(require('yog-devtools')({
 // cms预览
 app.use(require("./cmsPreview.js"))
 
+// ssi预览
+app.use(require("./ssiPreview.js")(DOCUMENT_ROOT))
+
 
 //combo
 var fileCache = {}
