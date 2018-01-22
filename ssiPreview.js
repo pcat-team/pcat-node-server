@@ -35,28 +35,25 @@ router.use(function(req, res, next) {
 
 
 
-                var fileReg = /<!--#include\svirtual="([^"]+)"\s*-->/gim;
+                var virtual = /<!--#include\svirtual="([^"]+)"\s*-->/gim;
 
+                content = content.replace(virtual, function(ret, src) {
 
-                content = content.replace(fileReg, function(ret, src) {
+                    if (src) return preview(src);
 
-                    // console.log(ret)
-                    // console.log(src)
-
-                    var data;
-                    var ssiDir = path.resolve(_root, "ssi", "." + src)
-
-                    try {
-                        data = fs.readFileSync(ssiDir)
-
-                    } catch (err) {
-
-                      data = src + "不存在！";
-                    }
-
-
-                    return data;
                 });
+
+
+                var file = /<%@\s*include\s*file="([^"]+)"\s*%>/gim;
+
+
+                content = content.replace(file, function(ret, src) {
+
+                    if (src) return preview(src);
+
+                });
+
+
 
                 res.send(content);
 
@@ -65,6 +62,24 @@ router.use(function(req, res, next) {
 
             }
         })
+
+
+        function preview(src) {
+            var data;
+            var ssiDir = path.resolve(_root, "ssi", "." + src)
+
+            try {
+                data = fs.readFileSync(ssiDir)
+
+            } catch (err) {
+
+                data = src + "不存在！";
+            }
+
+
+            return data;
+        }
+
 
     } else {
         next();
