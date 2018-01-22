@@ -66,7 +66,7 @@ router.use(function(req, res, next) {
 
         function preview(src) {
             var data;
-            var ssiDir = path.resolve(_root, "ssi", "." + src)
+            var ssiDir = path.resolve(_root, "_ssi", "." + src)
 
             try {
                 data = fs.readFileSync(ssiDir)
