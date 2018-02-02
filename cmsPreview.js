@@ -35,8 +35,10 @@ router.use(function(req, res, next) {
                     console.log(req.url.split("/"))
                     console.log(site)
 
+                    let  subDomain = (site == "geeknev") ? `${site}.com`:`${site}.com.cn`;
+
                     request.post({
-                        url: `http://cms.${site}.com.cn/admin/template/remotePreview.jsp`,
+                        url: `http://cms.${subDomain}/admin/template/remotePreview.jsp`,
                         form: config
                     }, (e, r, body) => {
                         // body && res.type(type), res.end(body)
