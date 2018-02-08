@@ -38,8 +38,10 @@ router.use(function(req, res, next) {
                 var virtual = /<!--#include\svirtual="([^"]+)"\s*-->/gim;
 
                 content = content.replace(virtual, function(ret, src) {
+                    
+                        var p =  preview(src) || ret;
 
-                    if (src) return preview(src);
+                        return p;
 
                 });
 
@@ -49,7 +51,13 @@ router.use(function(req, res, next) {
 
                 content = content.replace(file, function(ret, src) {
 
-                    if (src) return preview(src);
+                    if (src) {
+
+                        var p =  preview(src) || ret;
+
+                        return p;
+
+                    }
 
                 });
 
@@ -73,7 +81,7 @@ router.use(function(req, res, next) {
 
             } catch (err) {
 
-                data = src + "不存在！";
+                data =  "";
             }
 
 
