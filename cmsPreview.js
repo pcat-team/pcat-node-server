@@ -35,9 +35,10 @@ router.use(function(req, res, next) {
                     console.log(req.url.split("/"))
                     console.log(site)
 
-                    let  subDomain = (site == "geeknev") ? `${site}.com`:`${site}.com.cn`;
+                    let subDomain = (site == "geeknev") ? `${site}.com` : `${site}.com.cn`;
 
                     request.post({
+                        proxy: "http://192.168.243.232:1080",
                         url: `http://cms.${subDomain}/admin/template/remotePreview.jsp`,
                         form: config
                     }, (e, r, body) => {
@@ -45,7 +46,7 @@ router.use(function(req, res, next) {
                         res.send(body);
                         // next()
                     })
-                }else{
+                } else {
                     next();
                 }
 
